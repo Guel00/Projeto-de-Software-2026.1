@@ -1,0 +1,80 @@
+class Login:
+    def __init__(self):
+        self.usuarios = {}
+        print("Bem-vindo ao sistema de login!")
+    def registrar(self, usuario, senha):
+        if usuario in self.usuarios:
+            return False
+        self.usuarios[usuario] = senha
+        return True
+    
+    def autenticacao(self, usuario, senha):
+        if usuario not in self.usuarios:
+            return False
+        return self.usuarios[usuario] == senha
+    
+    def alertadesenhaincorreta(self, usuario):
+        if usuario not in self.usuarios:
+            return "Usuário não encontrado."
+        return "Senha incorreta. Tente novamente."
+    
+    def alterar_senha(self, usuario, anterior_senha, nova_senha):
+        if not self.autenticacao(usuario, anterior_senha):
+            return False
+        self.usuarios[usuario] = nova_senha
+        return True
+    
+class telaprincipal:
+    def __init__(self, usuario):
+        self.usuario = usuario
+        self.posts = []
+
+class Post:
+        def __init__(self, autor, conteudo):
+            self.author = autor
+            self.content = conteudo
+            self.likes = 0
+            
+        def like(self):
+                self.likes += 1
+            
+        def get_info(self):
+                return f"{self.author}: {self.content} ({self.likes} likes)"
+        def comentario(self, comment):
+                return f"{self.author} commented: {comment}"
+        def share(self):                
+            return f"{self.author} shared a post: {self.content}"
+        def save(self):
+                return f"{self.author} saved a post: {self.content}"
+        def repost(self):
+                return f"{self.author} reposted: {self.content}"
+        
+class chatcomfuncionario:
+    def __init__(self, nome_do_funcionario):
+        self.nome_do_funcionario = nome_do_funcionario
+
+        self.messages = []
+    
+    def send_message(self, mensagem):
+        self.messages.append((self.nome_do_funcionario, mensagem))
+        return f"{self.nome_do_funcionario} sent a message: {mensagem}"
+    
+    def receive_message(self, mensagem):
+        self.messages.append((self.nome_do_funcionario, mensagem))
+        return f"{self.nome_do_funcionario} sent a message: {mensagem}"
+    
+    
+    def get_chat_history(self):
+        return "\n".join([f"{sender}: {msg}" for sender, msg in self.messages])
+    
+    
+    
+
+    
+
+
+        
+
+            
+            
+                
