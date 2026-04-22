@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>BetterT - Feed</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #e6ecf0; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .logo { color: #1da1f2; font-size: 28px; font-weight: bold; margin-bottom: 10px; }
+        .nav-bar { background: white; padding: 15px; margin-bottom: 20px; width: 500px; display: flex; justify-content: space-between; align-items: center; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .post-input { background: white; padding: 20px; border-radius: 10px; width: 500px; margin-bottom: 20px; box-sizing: border-box; }
+        textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 5px; padding: 10px; resize: none; box-sizing: border-box; }
+        .btn-postar { background: #1da1f2; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; float: right; margin-top: 10px; font-weight: bold; }
+        .post-container { background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; width: 500px; box-sizing: border-box; border: 1px solid #e1e8ed; position: relative; }
+        .btn-acao { text-decoration: none; margin-right: 15px; font-size: 14px; color: #657786; }
+        .republicado { color: #555; font-size: 12px; margin-bottom: 8px; font-style: italic; }
+        .comentarios-box { background: #f8f9fa; padding: 10px; border-radius: 8px; margin: 10px 0; font-size: 14px; border: 1px solid #eee; }
+        .btn-excluir { background: none; border: none; color: #e0245e; cursor: pointer; font-size: 12px; opacity: 0.7; }
+        .btn-excluir:hover { opacity: 1; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="logo">BetterT 🐦</div>
+
+    <div class="nav-bar">
+        <span>Olá, <strong>{{ user.username }}</strong>!</span>
+        <div style="display: flex; align-items: center;">
+            <a href="{% url 'suporte' %}" style="text-decoration: none; color: #1da1f2; margin-right: 15px;">🛠️ Suporte</a>
+            <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; color: #e0245e; font-weight: bold; cursor: pointer; padding: 0;">🚪 Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="post-input">
+        <form action="{% url 'criar_post' %}" method="POST">
+            {% csrf_token %}
+            <textarea name="conteudo" placeholder="O que está acontecendo?" required></textarea>
+            <button type="submit" class="btn-postar">Postar</button>
+        </form>
+    </div>
+
+    {% for post in posts %}
+        <div class="post-container">
+            
+            {% if post.autor == user %}
+            <div style="position: absolute; top: 15px; right: 15px;">
+                <form action="{% url 'deletar_post' post.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-excluir" onclick="return confirm('Apagar este post?')">🗑️ Excluir</button>
+                </form>
+            </div>
+            {% endif %}
+
+            {% if post.republicado_de %}
+                <div class="republicado">🔁 Republicado de @{{ post.republicado_de.autor.username }}</div>
+            {% endif %}
+
+            <strong>@{{ post.autor.username }}</strong>
+            <p>{{ post.conteudo }}</p>
+            
+            <div class="comentarios-box">
+                {% for comentario in post.comentarios.all %}
+                    <div style="margin-bottom: 8px; border-bottom: 1px dotted #ccc; padding-bottom: 4px;">
+                        <strong>@{{ comentario.autor.username }}:</strong> {{ comentario.texto }}
+                    </div>
+                {% empty %}
+                    <span style="color: #657786; font-size: 12px;">Nenhum comentário. Seja o primeiro a responder!</span>
+                {% endfor %}
+            </div>
+
+            <small style="color: #657786;">{{ post.data|date:"H:i - d/m/Y" }}</small>
+            <hr style="border: 0; border-top: 1px solid #e1e8ed; margin: 15px 0;">
+
+            <div class="botoes">
+                <a href="{% url 'curtir' post.id %}" class="btn-acao">❤️ {{ post.curtidas.count }}</a>
+                <a href="{% url 'dislike' post.id %}" class="btn-acao">👎 {{ post.dislikes.count }}</a>
+                <a href="{% url 'republicar' post.id %}" class="btn-acao">🔁 Republicar</a>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <form action="{% url 'comentar' post.id %}" method="POST" style="display: flex; gap: 5px;">
+                    {% csrf_token %}
+                    <input type="text" name="texto" placeholder="Escreva um comentário..." required style="flex: 1; border: 1px solid #ddd; border-radius: 5px; padding: 8px;">
+                    <button type="submit" style="background: #1da1f2; color: white; border: none; border-radius: 5px; padding: 0 15px; cursor: pointer;">Ok</button>
+                </form>
+            </div>
+        </div>
+    {% empty %}
+        <p>O feed está vazio. Comece a conversar!</p>
+    {% endfor %}
+
+</body>
+</html>

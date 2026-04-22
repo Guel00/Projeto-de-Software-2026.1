@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>BetterT - Cadastro</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #e6ecf0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .cadastro-box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+        .logo { color: #1da1f2; font-size: 28px; font-weight: bold; margin-bottom: 20px; }
+        button { background: #1da1f2; color: white; border: none; padding: 10px; width: 100%; border-radius: 20px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        a { color: #1da1f2; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="cadastro-box">
+        <div class="logo">BetterT 🐦</div>
+        <h2>Criar sua conta</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cadastrar</button>
+        </form>
+        <br>
+        <a href="{% url 'login' %}">Já tem uma conta? Entre aqui.</a>
+    </div>
+</body>
+</html>

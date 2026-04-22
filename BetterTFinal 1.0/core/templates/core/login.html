@@ -1,0 +1,26 @@
+<div style="width: 300px; margin: 100px auto; font-family: sans-serif; text-align: center;">
+    <h2>BetterT 🐦</h2>
+    <p>Entre para ver o que está acontecendo</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Usuário" style="width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box;"><br>
+        <input type="password" name="password" placeholder="Senha" style="width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box;"><br>
+        <button type="submit" style="width: 100%; padding: 10px; background-color: #1da1f2; color: white; border: none; border-radius: 5px; cursor: pointer;">Entrar</button>
+    </form>
+
+    {% if form.errors %}
+        <p style="color: red; font-size: 14px;">Usuário ou senha inválidos!</p>
+    {% endif %}
+
+    <hr style="margin: 20px 0;">
+    
+    <p style="font-size: 14px; margin-bottom: 10px;">Novo no BetterT?</p>
+    <a href="{% url 'cadastro' %}" style="display: block; width: 100%; padding: 10px; background-color: white; color: #1da1f2; border: 1px solid #1da1f2; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: bold; box-sizing: border-box; margin-bottom: 20px;">
+        Criar minha conta
+    </a>
+
+    <p style="font-size: 14px;">Precisa de ajuda? <br>
+        <a href="{% url 'suporte' %}" style="color: #1da1f2; text-decoration: none;">Clique aqui para falar com o Suporte</a>
+    </p>
+</div>
