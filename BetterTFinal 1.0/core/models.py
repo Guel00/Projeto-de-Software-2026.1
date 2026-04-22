@@ -2,14 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # 1. ESTA É A CLASSE ABSTRATA
-# Ela centraliza o campo 'data' que existia em todos os seus modelos
 class BaseModelo(models.Model):
     data = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        abstract = True  # <--- Isso define que ela é uma Classe Abstrata
+        abstract = True  
 
-# 2. AGORA OS MODELOS HERDAM DA BaseModelo
+
 class Post(BaseModelo): # Herança da classe abstrata
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     conteudo = models.TextField(max_length=280)
