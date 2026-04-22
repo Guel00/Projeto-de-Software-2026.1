@@ -5,7 +5,8 @@ class Post(models.Model):#exemplo de herança #
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     conteudo = models.TextField(max_length=280)
     data = models.DateTimeField(auto_now_add=True)
-
+    
+    abstract = true
     curtidas = models.ManyToManyField(User, related_name='curtidas', blank=True)
     dislikes = models.ManyToManyField(User, related_name='dislikes', blank=True)
     salvados = models.ManyToManyField(User, related_name='salvados', blank=True)
