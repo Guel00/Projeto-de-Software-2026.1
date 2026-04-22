@@ -70,7 +70,7 @@ def cadastro(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save() #exemplo de encapsulamento#
             login(request, user)
             return redirect('feed')
     else:
