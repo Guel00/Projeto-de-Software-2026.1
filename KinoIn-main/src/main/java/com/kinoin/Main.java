@@ -3,7 +3,7 @@ package com.kinoin;
 import com.kinoin.enums.MovieStatus;
 import com.kinoin.model.*;
 import com.kinoin.service.*;
-// 🎯 AQUI: Importando a sua nova Facade
+//  AQUI: Importando a sua nova Facade
 import com.kinoin.facade.CinemaFacade;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ public class Main {
     static Catalog catalog = new Catalog();
     static Feed feed = new Feed();
     
-    // 🎯 AQUI: Inicializando a Facade e passando o feed para ela
+    //  AQUI: Inicializando a Facade e passando o feed para ela
     static CinemaFacade facade = new CinemaFacade(feed);
 
     static User user = new User("João", "joao@email.com");
