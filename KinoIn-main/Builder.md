@@ -1,12 +1,3 @@
-# KinoIn - Sistema de Gestão de Cinema
-
-O **KinoIn** é uma aplicação Java projetada para gerenciar o catálogo de um cinema, a compra de ingressos e fornecer uma experiência de rede social onde amigos podem interagir através de um feed de filmes assistidos.
-
-A arquitetura do projeto foi desenvolvida utilizando boas práticas de Programação Orientada a Objetos e foca na aplicação prática de três categorias de **Padrões de Projeto (Design Patterns)**: Criacional, Estrutural e Comportamental.
-
----
-
-## 🛠️ Padrões de Projeto Implementados
 
 ### 1. Builder (Padrão Criacional)
 * **Conceito:** Separa a construção de um objeto complexo da sua representação, permitindo criá-lo passo a passo através de uma interface fluente. Resolve o problema de construtores gigantescos (*Telescoping Constructor*) e garante que o objeto só seja instanciado quando estiver totalmente configurado.
@@ -23,4 +14,5 @@ A arquitetura do projeto foi desenvolvida utilizando boas práticas de Programa�
       this.status = builder.status;
       // ...
   }
+
 
